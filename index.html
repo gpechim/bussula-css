@@ -1,240 +1,293 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Desafio CSS #06: criar uma bússola, utilizando apenas CSS - Especial W3C - Conferência Web W3C Brasil 2013">
-    <meta name="author" content="Gerson Pechim">
-    <title>Desafio CSS #06: bússola</title>
-<style type="text/css">
-	#bussula{
-          position: relative;
-          width: 300px;
-          height: 300px;
-          margin: 10% auto;
-          border-radius: 50%;
-          border: 2px solid #666;
-          background: linear-gradient(#999, #333);
-          box-shadow: 2px 0px 20px #666;
-      }
-      #bussula:before{
-          content: '';
-          display: block;
-          position: absolute;
-          width: 272px;
-          height: 272px;
-          top:10px;
-          left: 10px;
-          border-radius: 50%;
-          border: 4px solid #c4c4c4;
-          background: linear-gradient(#666, #f2f2f2);
-          box-shadow: inset 1px 2px 4px 2px #777;
-      }
-      #bussula:after{
-          content: '';
-          display: block;
-          position: absolute;
-          top: 20px;
-          left: 20px;
-          width: 248px;
-          height: 248px;
-          border-radius: 50%;
-          background: radial-gradient(#004c8a, #0070af);
-          border: 6px solid #dedede;
-          box-shadow: inset 1px 1px 10px 2px #111, 2px 0px 5px #666;
-      }
-      #container{
-          position: absolute;
-          z-index: 999999999;
-      }
-      @-webkit-keyframes pointers-sm {
-          0%    { -webkit-transform: rotate(0deg);}
-          25%   { -webkit-transform: rotate(25deg);}
-          50%   { -webkit-transform: rotate(50deg);}
-          75%   { -webkit-transform: rotate(25deg);}
-          100%  { -webkit-transform: rotate(0deg);}
-      }
-      @-webkit-keyframes pointer-lg {
-          0%    { -webkit-transform: rotate(0deg);}
-          25%   { -webkit-transform: rotate(15deg);}
-          50%   { -webkit-transform: rotate(30deg);}
-          75%   { -webkit-transform: rotate(15deg);}
-          100%  { -webkit-transform: rotate(0deg);}
-      }
-      #pointer-lg {
-          position: absolute;z-index: 99999;
-          width: 250px;
-          height: 250px;
-          margin: 20px 25px;
-          -webkit-animation-name:             pointer-lg;
-          -webkit-animation-duration:         10s;
-          -webkit-animation-iteration-count:  8s;
-          -webkit-transition-timing-function: ease-in-out;
-      }
-      #pointer-lg-1,
-      #pointer-lg-2{
-          width: 0;
-          height: 0;
-          left:110px;
-          top:15px;
-          position: absolute;z-index: 99;
-          border-bottom: 115px solid red;
-          border-left: 12px solid transparent;
-          border-right: 12px solid transparent;
-      }
-      #pointer-lg-2{
-          border-bottom-color: #dcdcde;
-          top:130px;
-          -webkit-transform:rotate(180deg);
-      }
-      #pointer-lg-pino{
-          width: 14px;
-          height: 14px;
-          border-radius: 50%;
-          border: 2px solid #555;
-          background: radial-gradient(#fff, #ccc);
-          position: absolute;z-index: 999;
-          left:113px;
-          top:120px;
-      }
-      #pointers-sm{
-          position: relative;
-          width: 130px;
-          height: 130px;
-          margin: 83px 86px;
-          -webkit-animation-name:             pointers-sm;
-          -webkit-animation-duration:         6s;
-          -webkit-animation-iteration-count:  6s;
-          -webkit-transition-timing-function: ease-in-out;
-      }
-      .triangles{
-          position: absolute;
-          z-index: 9;
-      }
-      .triangle-sm {
-          width: 0;
-          height: 0;
-          border-bottom: 20px solid white;
-          border-left: 3px solid transparent;
-          border-right: 3px solid transparent;
-      }
-      .triangle-sm-1{
-          top: 24px;
-          left: 84px;
-          -webkit-transform:rotate(44deg);
-      }
-      .triangle-sm-2{
-          top: 78px;
-          left: 86px;
-          -webkit-transform:rotate(134deg);
-      }
-      .triangle-sm-3{
-          top: 78px;
-          left: 32px;
-          -webkit-transform:rotate(-134deg);
-      }
-      .triangle-sm-4{
-          top: 24px;
-          left: 34px;
-          -webkit-transform:rotate(-44deg);
-      }
-      .triangle-md-1:before,
-      .triangle-md-2:before,
-      .triangle-md-3:before,
-      .triangle-md-4:before{
-          color:#fff;
-          font-size: 30px;
-          margin: -40px 0 0 -10px;
-          position: absolute;
-      }
-      .triangle-md-1:before {
-          content:"N";
-      }
-      .triangle-md-2:before {
-          content:"E";
-      }
-      .triangle-md-3:before {
-          content:"S";
-      }
-      .triangle-md-4:before {
-          content:"W";
-      }
-      .triangle-md {
-          width: 0;
-          height: 0;
-          border-bottom: 37px solid white;
-          border-left: 7px solid transparent;
-          border-right: 7px solid transparent;
-          left: 42%;
-      }
-      .triangle-md-1 {
-          -webkit-transform:rotate(0deg);
-      }
-      .triangle-md-2 {
-          top:42px;
-          left: 100px;
-          -webkit-transform:rotate(90deg);
-      }
-      .triangle-md-3 {
-          bottom: 3px;
-          -webkit-transform:rotate(180deg);
-      }
-      .triangle-md-4 {
-          top:42px;
-          left: 10px;
-          -webkit-transform:rotate(270deg);
-      }
-      #center-circle{
-          display: inline-block;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background-color: #004c8a;
-          border: 4px solid #fff;
-          margin: 33px;
-      }
-      .top-grad{
-          width: 190px;
-          height: 110px;
-          position: absolute;
-          z-index: 99999999;
-          top: 0;
-          left: 50px;
-          background: rgb(255,162,0);
-          background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255,255,255,0.45)), color-stop(0.01, rgba(255,255,255,0.25)), color-stop(0.58, rgba(255,249,249,0)));
-          background: -webkit-linear-gradient(rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.45) 1%, rgba(255,249,249,0) 78%);
-          background: -moz-linear-gradient(rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.45) 1%, rgba(255,249,249,0) 78%);
-          background: -o-linear-gradient(rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.45) 1%, rgba(255,249,249,0) 78%);
-          background: linear-gradient(rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.45) 1%, rgba(255,249,249,0) 78%);
-          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#40ffffff', endColorstr='#00fff9f9',GradientType=0 );
-          -webkit-border-radius: 230px/130px;
-          border-radius: 230px/130px;
-      }
-</style>
+<html>
+
+  <head>
+	<meta name="generator" content="Hugo 0.17" />
+    <title>Adventure Time!</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Adventure Time is an American animated television series created by Pendleton Ward for Cartoon Network. The series follows the adventures of Finn, a human boy, and his best friend and adoptive brother Jake, a dog with magical powers to change shape and grow and shrink at will. Finn and Jake live in the post-apocalyptic Land of Ooo. Along the way, they interact with the other main characters of the show: Princess Bubblegum, The Ice King, and Marceline the Vampire Queen." />
+
+    <meta name="keywords" content="adventure time,cartoon network,cartoons,finn,jake,princess bubblegum" />
+    
+    <script src="http://example.comassets/js/jquery.min.js"></script>
+    <script src="http://example.comassets/js/skel.min.js"></script>
+    <script src="http://example.comassets/js/skel-layers.min.js"></script>
+    <script src="http://example.comassets/js/init.js"></script>
+    <link rel="stylesheet" href="http://example.comassets/css/skel.css" />
+    <link rel="stylesheet" href="http://example.comassets/css/style.css" />
+    <link rel="stylesheet" href="http://example.comassets/css/style-desktop.css" />
+    
+    <link rel="alternate" type="application/rss+xml" title="Adventure Time!" href="http://example.com/index.xml" />
 </head>
-	<body>
-	    <div id="wrap">
-	        <div id="bussula">
-	            <div id="container">
-	                <div class="top-grad"></div>
-	                <div id="pointer-lg">
-	                    <div id="pointer-lg-pino"></div>
-	                    <div id="pointer-lg-1"></div>
-	                    <div id="pointer-lg-2"></div>
-	                </div><!-- #pointer-lg -->
-	                <div id="pointers-sm">
-	                    <div class="triangles triangle-md triangle-md-1"></div>
-	                    <div class="triangles triangle-md triangle-md-2"></div>
-	                    <div class="triangles triangle-md triangle-md-3"></div>
-	                    <div class="triangles triangle-md triangle-md-4"></div>
-	                    <div class="triangles triangle-sm triangle-sm-1"></div>
-	                    <div class="triangles triangle-sm triangle-sm-2"></div>
-	                    <div class="triangles triangle-sm triangle-sm-3"></div>
-	                    <div class="triangles triangle-sm triangle-sm-4"></div>
-	                    <div id="center-circle"></div>
-	                </div><!-- #pointers-sm -->
-				</div><!-- #container -->
-	        </div><!-- #bussula -->
-		</div><!-- #wrap -->
-	</body>
+
+
+  <body>
+
+    
+<div id="header-wrapper">
+    <div id="header">
+
+        
+            <h1><a href="/">Adventure Time!</a></h1>
+        
+        <nav id="nav">
+            <ul>
+                
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/posts">Posts</a></li>
+                
+                    <li><a href="/about/">About</a></li>
+                
+                    <li><a href="/contact/">Contact</a></li>
+                
+            </ul>
+        </nav>
+
+        
+        
+            <section id="banner">
+                <header>
+                    <h2>Explore the Land of Ooo...</h2>
+                    <p>...and its many kingdoms!</p>
+                </header>
+            </section>
+        
+
+    </div>
+</div>
+
+
+    
+    <div id="main-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="12u">
+
+                    
+                        <section>
+                            <header class="major">
+                                <h2>Characters</h2>
+                            </header>
+                            <div class="row">
+                            
+                                <div class="4u">
+                                    <section class="box">
+                                        <span class="image featured"><img src="forestryio/images/finn.jpg" alt="" /></span>
+                                        <header>
+                                            <h3>Finn the Human</h3>
+                                        </header>
+                                        <p>Finn is a 15-year-old human. He is roughly five feet tall and is missing several teeth due to his habit of biting trees and rocks among other things.</p>
+                                    </section>
+                                </div>
+                            
+                                <div class="4u">
+                                    <section class="box">
+                                        <span class="image featured"><img src="forestryio/images/jake.jpg" alt="" /></span>
+                                        <header>
+                                            <h3>Jake the Dog</h3>
+                                        </header>
+                                        <p>Jake can morph into all sorts of fantastic shapes with his powers, but typically takes the form of an average sized yellow-orange bulldog.</p>
+                                    </section>
+                                </div>
+                            
+                                <div class="4u">
+                                    <section class="box">
+                                        <span class="image featured"><img src="forestryio/images/bubblegum.jpg" alt="" /></span>
+                                        <header>
+                                            <h3>Princess Bubblegum</h3>
+                                        </header>
+                                        <p>Princess Bubblegum loves (most of) her subjects and defends them tirelessly when trouble brews and is perhaps the most intelligent person in the Land of Ooo.</p>
+                                    </section>
+                                </div>
+                            
+                                <div class="4u">
+                                    <section class="box">
+                                        <span class="image featured"><img src="forestryio/images/iceking.jpg" alt="" /></span>
+                                        <header>
+                                            <h3>Ice King</h3>
+                                        </header>
+                                        <p>Ice King, formerly Simon Petrikov, is a blue-skinned, elderly man with unusually pointy fingers, pointy toes, sharp teeth, and a long, goblin-like nose.</p>
+                                    </section>
+                                </div>
+                            
+                                <div class="4u">
+                                    <section class="box">
+                                        <span class="image featured"><img src="forestryio/images/lsp.jpg" alt="" /></span>
+                                        <header>
+                                            <h3>Lumpy Space Princess</h3>
+                                        </header>
+                                        <p>Lumpy Space Princess (LSP) acts like a bratty, apathetic, sassy, attention-seeking and willfully ignorant teenager, often texting on her phone.</p>
+                                    </section>
+                                </div>
+                            
+                                <div class="4u">
+                                    <section class="box">
+                                        <span class="image featured"><img src="forestryio/images/marceline.jpg" alt="" /></span>
+                                        <header>
+                                            <h3>Marceline</h3>
+                                        </header>
+                                        <p>Marceline is over a thousand years old. Centuries of wandering the Land of Ooo have made her a fearless daredevil and a a lover of all things exotic.</p>
+                                    </section>
+                                </div>
+                            
+                            </div>
+                        </section>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="12u">
+
+                    
+                        <section>
+                            <header class="major">
+                                <h2>Recent Episodes</h2>
+                            </header>
+                            <div class="row">
+                            
+                                <div class="6u">
+                                    <section class="box">
+                                        <a href="http://example.com/posts/season-6-food-chain/" class="image featured"><img src="http://example.comforestryio/images/foodchain.jpg" alt="" /></a>
+                                        <header>
+                                            <h3>Food Chain (Season 6)</h3>
+                                            <p>Posted Jun 12,2014</p>
+                                        </header>
+                                        <p><p>The episode begins with candy children that have bodies resembling different shapes sliding down a slide, shouting with excitement. The kids are viewed from an horizontal angle in the next scene as they go through a playground-like structure. Finn and Jake are examining the &lsquo;Catapilla Family&rsquo;. After watching Princess Bubblegum teach the children about the Food Chain, they head to the snack bar as Finn found Princess Bubblegum&rsquo;s class useless.</p></p>
+                                        <footer>
+                                            <ul class="actions">
+                                                <li><a href="http://example.com/posts/season-6-food-chain/" class="button icon fa-file-text">Continue Reading</a></li>
+                                            </ul>
+                                        </footer>
+                                    </section>
+                                </div>
+                            
+                                <div class="6u">
+                                    <section class="box">
+                                        <a href="http://example.com/posts/season-6-breezy/" class="image featured"><img src="http://example.comforestryio/images/breezy.jpg" alt="" /></a>
+                                        <header>
+                                            <h3>Breezy (Season 6)</h3>
+                                            <p>Posted Jun 5,2014</p>
+                                        </header>
+                                        <p></p>
+                                        <footer>
+                                            <ul class="actions">
+                                                <li><a href="http://example.com/posts/season-6-breezy/" class="button icon fa-file-text">Continue Reading</a></li>
+                                            </ul>
+                                        </footer>
+                                    </section>
+                                </div>
+                            
+                            </div>
+                        </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+<div id="footer-wrapper">
+    <section id="footer" class="container">
+        <div class="row">
+            <div class="8u">
+                <section>
+                    <header>
+                        <h2>More Episodes</h2>
+                    </header>
+                    <ul class="dates">
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                        <li>
+                            <span class="date">Jun<strong>12</strong></span>
+                            <h3><a href="http://example.com/posts/season-6-food-chain/">Food Chain (Season 6)</a></h3>
+                            <p>Finn and Jake learn about the food chain by becoming the food chain.</p>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <span class="date">Jun<strong>5</strong></span>
+                            <h3><a href="http://example.com/posts/season-6-breezy/">Breezy (Season 6)</a></h3>
+                            <p>Finn decides to get back into the dating game to help his wilting arm flower.</p>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <span class="date">May<strong>12</strong></span>
+                            <h3><a href="http://example.com/posts/season-6-sad-face/">Sad Face (Season 6)</a></h3>
+                            <p>While Jake is asleep, his tail goes to work as a clown in a traveling bug circus.</p>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <span class="date">May<strong>5</strong></span>
+                            <h3><a href="http://example.com/posts/season-6-the-tower/">The Tower (Season 6)</a></h3>
+                            <p>Finn is not happy with his replacement arm.</p>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <span class="date">Apr<strong>28</strong></span>
+                            <h3><a href="http://example.com/posts/season-6-james-ii/">James II (Season 6)</a></h3>
+                            <p>Finn and Jake discover that Clone James has been faking his own death.</p>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <span class="date">Apr<strong>21</strong></span>
+                            <h3><a href="http://example.com/posts/season-6-escape-the-citadel/">Escape from the Citadel (Season 6)</a></h3>
+                            <p>Finn and Jake follow the Lich to the Citadel, where Finn meets his long lost dad.</p>
+                        </li>
+                        
+                    
+                        
+                        <li>
+                            <span class="date">Apr<strong>21</strong></span>
+                            <h3><a href="http://example.com/posts/season-6-wake-up/">Wake Up (Season 6)</a></h3>
+                            <p>Prismo helps Finn and Jake access the Crystal Citadel to meet Finn&#39;s father.</p>
+                        </li>
+                        
+                    
+                    </ul>
+                </section>
+            </div>
+            <div class="4u">
+                <section>
+                    <header>
+                        <h2>What's this all about?</h2>
+                    </header>
+                    <a href="#" class="image featured"><img src="http://example.comforestryio/images/about.jpg" alt="" /></a>
+                    <p>Adventure Time is an American animated television series created by Pendleton Ward for Cartoon Network. The series follows the adventures of Finn, a human boy, and his best friend and adoptive brother Jake, a dog with magical powers to change shape and grow and shrink at will. Finn and Jake live in the post-apocalyptic Land of Ooo. Along the way, they interact with the other main characters of the show: Princess Bubblegum, The Ice King, and Marceline the Vampire Queen.</p>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="12u">
+
+                
+                    <div id="copyright">
+                        <ul class="links">
+                            <li>&copy; Adventure Time!. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                        </ul>
+                    </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+
+  </body>
+
 </html>
